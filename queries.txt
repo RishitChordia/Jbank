@@ -1,0 +1,108 @@
+
+create database jbank;
+use jbank;
+
+create table user(username varchar(30) , password varchar(30) , usertype varchar(30) , primary key (username));
+
+
+create table bankmanager(username varchar(30) , managerid int, primary key (username) , foreign key (username) references user(username));
+
+
+create table account(accounttype varchar(30) , minimumbalance decimal(12,2) , transactionfees decimal(12,2) , primary key (accounttype));   
+
+
+create table accountholder(username varchar(30) , accountnumber int, balance decimal(12,2) , passwordattempts int , accounttype varchar(30) not null , primary key (username) , foreign key (username) references user(username) , foreign key (accounttype) references account(accounttype));
+
+
+create table transaction(transactionid int auto_increment, sender varchar(30) , receiver varchar(30) , amount decimal(12,2) , primary key (transactionid) , foreign key (sender) references accountholder(username) , foreign key (receiver) references accountholder(username));                        
+
+
+insert into account values('NRI' , 1000.00 , 0.02);
+insert into account values('Indian' , 0.00 , 0.01);
+
+
+insert into user values('Rishit' , 'nnln3ynnnN3cnN3tQ6unn3lwn5cnnn' , 'AccountHolder');
+insert into accountholder values('Rishit' , 10161848 , 9130350.7 , 0 , 'Indian');
+insert into user values('Vaisakh' , 'sN3gN3cnN3T32tnF9wN36gqnnN3mM' , 'AccountHolder');
+insert into accountholder values('Vaisakh' , 10496932 , 2338980.7 , 0 , 'NRI');
+insert into user values('Amritha' , '6bnnnK89oanfb87in3Z79t3onnnnN3' , 'AccountHolder');
+insert into accountholder values('Amritha' , 10924269 , 5970210.3 , 0 , 'Indian');
+insert into user values('Navaneeth' , 'V5gnnnbn3L1qnY6jnn3cq3cbninyn3' , 'AccountHolder');
+insert into accountholder values('Navaneeth' , 10866636 , 6168990.7 , 0 , 'Indian');
+insert into user values('Amal' , 'q3jnnn3uK8bnbN3lnN36unN37891' , 'AccountHolder');
+insert into accountholder values('Amal' , 10698884 , 3091660.8 , 0 , 'Indian');
+insert into user values('Jackson' , 'dnn34uN3bcwN36bnl36lnN31m3pn3' , 'AccountHolder');
+insert into accountholder values('Jackson' , 10508456 , 5632910.5 , 0 , 'NRI');
+insert into user values('Rishika' , 'nnln3ynnnN3cnN3tQ6unn3lwn5cnnn' , 'AccountHolder');
+insert into accountholder values('Rishika' , 10571008 , 3677030.0 , 5 , 'Indian');
+insert into user values('Rithika' , 'nT7mnnC6k3bN33annnnncocnN3M2tr' , 'AccountHolder');
+insert into accountholder values('Rithika' , 10334383 , 7810420.3 , 0 , 'Indian');
+insert into user values('Aswin' , 'hnn6D9ph8xt3nnmB1kv3L16knV3c' , 'AccountHolder');
+insert into accountholder values('Aswin' , 10267650 , 3082420.1 , 0 , 'Indian');
+insert into user values('Tejaswini' , 'N7zjnqkN3gnn3rN30O2k87cnnsx' , 'AccountHolder');
+insert into accountholder values('Tejaswini' , 10276656 , 364700.7 , 0 , 'NRI');
+insert into user values('Sandhra' , 'n3m3s3enN3e6l7on3dnnW0cfn' , 'AccountHolder');
+insert into accountholder values('Sandhra' , 10513515 , 6134630.8 , 0 , 'NRI');
+
+
+
+insert into user values('Sumesh' , 'N3d3B33j6z39rnnnB1xnN3j5uN39e' , 'BankManager');
+insert into bankmanager values('Sumesh' , 10760822);
+insert into user values('Saidalavi' , 'N3hn0mN3dn34rN3xnnnnxnN3gz3d' , 'BankManager');
+insert into bankmanager values('Saidalavi' , 10610519);
+insert into user values('Manisha' , 'r3m4T1bz33rnlN3V96annN3qnN3j3H' , 'BankManager');
+insert into bankmanager values('Manisha' , 10775085);
+insert into user values('Pranesh' , 'mnnntonN30l2ln3d7oN3sqn3xw3' , 'BankManager');
+insert into bankmanager values('Pranesh' , 10402008);
+insert into user values('Raju' , 'g39S4gn3t3mvnnnJ9onN3J775gn' , 'BankManager');
+insert into bankmanager values('Raju' , 10867158);
+insert into user values('Althaf' , 'tjnnnnc3onnk3mdnF13D9B7zpvknN3' , 'BankManager');
+insert into bankmanager values('Althaf' , 10165515);
+
+ update accountholder set accountnumber = 10000059 where username = 'vaisakh';
+ update accountholder set accountnumber = 10000841 where username = 'rishit';
+
+
+
+insert into transaction (sender,receiver,amount) values ('Tejaswini' , 'Rishika' , 8935.17);
+insert into transaction (sender,receiver,amount) values ('Rishit' , 'Tejaswini' , 7493.75);
+insert into transaction (sender,receiver,amount) values ('Jackson' , 'Amritha' , 6629.34);
+insert into transaction (sender,receiver,amount) values ('Tejaswini' , 'Aswin' , 5044.56);
+insert into transaction (sender,receiver,amount) values ('Vaisakh' , 'Rishit' , 6415.55);
+insert into transaction (sender,receiver,amount) values ('Jackson' , 'Vaisakh' , 5988.77);
+insert into transaction (sender,receiver,amount) values ('Aswin' , 'Navaneeth' , 5449.40);
+insert into transaction (sender,receiver,amount) values ('Amritha' , 'Vaisakh' , 9674.47);
+insert into transaction (sender,receiver,amount) values ('Vaisakh' , 'Amal' , 9454.21);
+insert into transaction (sender,receiver,amount) values ('Sandhra' , 'Vaisakh' , 599.56);
+insert into transaction (sender,receiver,amount) values ('Amal' , 'Rishit' , 6294.99);
+insert into transaction (sender,receiver,amount) values ('Jackson' , 'Amritha' , 8457.12);
+insert into transaction (sender,receiver,amount) values ('Aswin' , 'Amritha' , 9267.86);
+insert into transaction (sender,receiver,amount) values ('Sandhra' , 'Amal' , 1423.30);
+insert into transaction (sender,receiver,amount) values ('Aswin' , 'Rishika' , 5646.05);
+insert into transaction (sender,receiver,amount) values ('Rishit' , 'Jackson' , 3997.71);
+insert into transaction (sender,receiver,amount) values ('Tejaswini' , 'Amal' , 6018.71);
+insert into transaction (sender,receiver,amount) values ('Amal' , 'Navaneeth' , 4836.15);
+insert into transaction (sender,receiver,amount) values ('Rithika' , 'Amritha' , 3187.78);
+insert into transaction (sender,receiver,amount) values ('Amal' , 'Jackson' , 5798.46);
+insert into transaction (sender,receiver,amount) values ('Rishika' , 'Rithika' , 6321.20);
+insert into transaction (sender,receiver,amount) values ('Rithika' , 'Tejaswini' , 5595.62);
+insert into transaction (sender,receiver,amount) values ('Amal' , 'Navaneeth' , 9496.39);
+insert into transaction (sender,receiver,amount) values ('Vaisakh' , 'Sandhra' , 7584.93);
+insert into transaction (sender,receiver,amount) values ('Navaneeth' , 'Vaisakh' , 6126.03);
+insert into transaction (sender,receiver,amount) values ('Navaneeth' , 'Tejaswini' , 327.08);
+insert into transaction (sender,receiver,amount) values ('Navaneeth' , 'Sandhra' , 4909.48);
+insert into transaction (sender,receiver,amount) values ('Vaisakh' , 'Amal' , 7765.19);
+insert into transaction (sender,receiver,amount) values ('Jackson' , 'Amritha' , 6208.81);
+insert into transaction (sender,receiver,amount) values ('Tejaswini' , 'Amal' , 4217.77);
+insert into transaction (sender,receiver,amount) values ('Aswin' , 'Jackson' , 3805.95);
+insert into transaction (sender,receiver,amount) values ('Amritha' , 'Rishit' , 9884.39);
+insert into transaction (sender,receiver,amount) values ('Jackson' , 'Rithika' , 533.50);
+insert into transaction (sender,receiver,amount) values ('Amal' , 'Rishit' , 9531.27);
+insert into transaction (sender,receiver,amount) values ('Amal' , 'Vaisakh' , 1928.79);
+insert into transaction (sender,receiver,amount) values ('Rithika' , 'Vaisakh' , 5915.59);
+insert into transaction (sender,receiver,amount) values ('Jackson' , 'Vaisakh' , 9685.99);
+insert into transaction (sender,receiver,amount) values ('Amritha' , 'Jackson' , 9693.94);
+
+
+
+
